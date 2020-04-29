@@ -24,6 +24,8 @@ namespace SchoolsPortal.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             builder.Entity<Slider>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
             builder.Entity<AboutUs>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
             builder.Entity<ContactUs>().Property(x => x.Id).HasDefaultValueSql("NEWID()");
