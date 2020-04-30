@@ -1,9 +1,9 @@
 ﻿(function ($) {
-    function Setadi() {
+    function AboutUs() {
         var $this = this;
 
         function initilizeModel() {
-            $("#modal-action-setadi2").on('loaded.bs.modal', function (e) {
+            $("#modal-action-AboutUs").on('loaded.bs.modal', function (e) {
 
             }).on('hidden.bs.modal', function (e) {
                 $(this).removeData('bs.modal');
@@ -14,7 +14,7 @@
         }
     }
     $(function () {
-        var self = new Setadi();
+        var self = new AboutUs();
         self.init();
     })
 }(jQuery))
