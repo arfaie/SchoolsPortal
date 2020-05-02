@@ -15,5 +15,8 @@ namespace SchoolsPortal.Models
 
         [Display(Name = "توضیحات گالری")]
         public string GalleryDes { get; set; }
+
+        [Display(Name = "لگو")]
+        public string Logo { get; set; }
     }
 }

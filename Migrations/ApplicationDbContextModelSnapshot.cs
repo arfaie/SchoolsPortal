@@ -130,6 +130,12 @@ namespace SchoolsPortal.Migrations
                         .HasColumnType("nvarchar(450)")
                         .HasDefaultValueSql("NEWID()");
 
+                    b.Property<string>("Des")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Title1")
                         .HasColumnType("nvarchar(max)");
 
@@ -328,6 +334,9 @@ namespace SchoolsPortal.Migrations
                         .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("GalleryDes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Logo")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

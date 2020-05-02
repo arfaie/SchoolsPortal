@@ -13,6 +13,9 @@ namespace SchoolsPortal.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
 
+        [Display(Name = "توضیحات")]
+        public string Des { get; set; }
+
         [Display(Name = "عنوان اول")]
         public string Title1 { get; set; }
 
@@ -24,5 +27,8 @@ namespace SchoolsPortal.Models
 
         [Display(Name = "عنوان چهارم")]
         public string Title4 { get; set; }
+
+        [Display(Name = "عکس")]
+        public string Image { get; set; }
     }
 }
