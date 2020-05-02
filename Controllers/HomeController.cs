@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SchoolsPortal.Data;
 using SchoolsPortal.Models;
@@ -23,18 +24,16 @@ namespace SchoolsPortal.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             var model = new MultiModels();
             model.AboutUs = _context.AboutUses.FirstOrDefault();
-            model.ContactUses =
-                (from contactUse in _context.ContactUses select contactUse).ToList();
-            model.Galleries =
-                (from gallery in _context.Galleries orderby gallery.Id descending select gallery).ToList();
+            model.ContactUses = await _context.ContactUses.ToListAsync();
+            model.Galleries = await _context.Galleries.ToListAsync();
             model.Services = _context.Serviceses.SingleOrDefault();
-            model.Sliders = (from slider in _context.Sliders orderby slider.Id select slider).ToList();
+            model.Sliders = await _context.Sliders.ToListAsync();
             model.Setting = _context.Settings.SingleOrDefault();
-            ViewBag.RootPath = "images/home-uploads/";
+            ViewBag.RootPath = "/images/home-uploads/";
 
             return View(model);
         }

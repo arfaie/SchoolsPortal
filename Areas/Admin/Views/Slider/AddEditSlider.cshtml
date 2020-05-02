@@ -1,0 +1,71 @@
+﻿@model Slider
+@addTagHelper *,Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *,LibraryProject
+
+<form method="post" enctype="multipart/form-data">
+
+    @* Header *@
+    @if (String.IsNullOrEmpty(Model.Id))
+    {
+        @await Html.PartialAsync("_Modalheader", new ModalHeader { Heading = "افزودن اسلایدر" })
+    }
+    else
+    {
+        @await Html.PartialAsync("_Modalheader", new ModalHeader { Heading = "ویرایش اسلایدر " })
+    }
+
+    @Html.AntiForgeryToken();
+
+    @* Body *@
+    <div class="modal-body form-horizontal">
+        <div class="row">
+
+            <div class="form-group">
+                <label asp-for="Title" class="col-lg-2 col-sm-2 control-label"></label>
+                <div class="col-lg-4">
+                    <input asp-for="Title" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Description" class="col-lg-2 col-sm-2 control-label"></label>
+                <div class="col-lg-4">
+                    <input asp-for="Description" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Image" class="col-lg-2 col-sm-2 control-label"></label>
+                <div class="col-lg-4">
+                    <input id="files" type="file" name="files" multiple class="btn btn-danger" />
+                </div>
+                @if (!String.IsNullOrEmpty(Model.Id))
+                {
+                    <input type="hidden" name="ImgName" value="@Model.Image" />
+                }
+            </div>
+
+
+            <div class="form-group hidden">
+                <input asp-for="Id" class="form-control" />
+            </div>
+        </div>
+    </div>
+
+    @* Footer *@
+    @if (String.IsNullOrEmpty(Model.Id))
+    {
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" data-dismiss="modal">برگشت</button>
+            <input type="button" id="submitData" class="btn btn-success" value="افزودن اسلایدر" />
+        </div>
+    }
+    else
+    {
+        <div class="modal-footer">
+            <button class="btn btn-default" type="button" data-dismiss="modal">برگشت</button>
+            <input type="button" id="submitData" class="btn btn-info" value="ویرایش اسلایدر" />
+        </div>
+    }
+
+</form>

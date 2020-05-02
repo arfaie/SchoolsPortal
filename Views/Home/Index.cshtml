@@ -88,13 +88,13 @@
     <section id="j-slider">
         <div class="slide-main">
             <!-- Single Slider -->
-            @Html.Partial("_Slider", Model.Sliders)
+            @await Html.PartialAsync("_Slider", Model.Sliders)
             <!--/ End Single Slider -->
         </div>
     </section>
     <!--/ End Slider -->
     <!-- Start Service -->
-    @Html.Partial("_Services", Model.Services)
+    @await Html.PartialAsync("_Services", Model.Services)
     <!--/ End Service -->
     <!-- Why Choose Us -->
     <div id="why-choose" class="section">
@@ -104,16 +104,16 @@
                 background-repeat: no-repeat;
             }
         </style>
-        
-       
 
-                    @* About Us *@
 
-                    @Html.Partial("_AboutUs", Model.AboutUs)
 
-                    @* End About Us *@
+        @* About Us *@
 
-                    
+        @await Html.PartialAsync("_AboutUs", Model.AboutUs)
+
+        @* End About Us *@
+
+
     </div>
     <!--/ End Why Choose Us -->
     <!-- Start Team -->
@@ -133,12 +133,12 @@
 
             <!-- Gallery -->
 
-            @Html.Partial("_Gallery", Model.Galleries)
+            @await Html.PartialAsync("_Gallery", Model.Galleries)
 
             <!--/ End Gallery -->
         </div>
         <div class=" center" style="margin: 0 19rem;padding: 3rem 15rem; text-align: center; background: white">
-            <p >
+            <p>
                 سلام گالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویررگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویر
                 سلام گالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویررگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویرگالری تصاویر
             </p>
@@ -147,7 +147,7 @@
 
     <!-- Contact Us -->
 
-    @Html.Partial("_ContactUs", Model.ContactUses)
+    @await Html.PartialAsync("_ContactUs", Model.ContactUses)
 
     <!--/ End Contact Us -->
 

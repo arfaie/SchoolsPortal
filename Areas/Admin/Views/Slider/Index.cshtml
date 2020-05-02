@@ -1,16 +1,9 @@
-﻿@model IEnumerable<AboutUs>
-
+﻿@model IEnumerable<Slider>
 @{
-    ViewBag.Title = "درباره ما";
+    ViewData["Title"] = "اسلایدر";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div style="color:white;text-align:center" class=@TempData["css"]>
-    @if (TempData["notice"] != null)
-    {
-        <p>@TempData["notice"]</p>
-    }
-</div>
 <div class="layout-content-body">
     <div class="row gutter-xs">
         <div class="col-xs-12">
@@ -35,8 +28,8 @@
                     <div class="md-form-group md-label-floating col-md-6">
                         <div class="margin-top">
                             <div class="col-xs-6 col-md-6">
-                                <a class="btn btn-primary marginbutoom" id="showAboutUs" data-toggle="modal" asp-action="AddEdit"
-                                   data-target="#modal-action-AboutUs">
+                                <a class="btn btn-primary marginbutoom" id="showAboutUs" data-toggle="modal" asp-action="AddEditSlider"
+                                   data-target="#modal-action-Sliders">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     جدید
                                 </a>
@@ -47,10 +40,9 @@
                         <thead>
                             <tr>
                                 <th>کد</th>
-                                <th>@Html.DisplayNameFor(model => model.Title1)</th>
-                                <th>@Html.DisplayNameFor(model => model.Title2)</th>
-                                <th>@Html.DisplayNameFor(model => model.Title3)</th>
-                                <th>@Html.DisplayNameFor(model => model.Title4)</th>
+                                <th>@Html.DisplayNameFor(model => model.Title)</th>
+                                <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                <th>@Html.DisplayNameFor(model => model.Image)</th>
                                 <th>عملیات</th>
                             </tr>
                         </thead>
@@ -62,21 +54,21 @@
 
                                     <tr>
                                         <td>@(i++)</td>
-                                        <td>@item.Title1</td>
-                                        <td>@item.Title2</td>
-                                        <td>@item.Title3</td>
-                                        <td>@item.Title4</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.Description</td>
+                                        <td class="center">
+                                            <img src="@ViewBag.RootPath@item.Image" />
+                                        </td>
 
                                         <td>
-                                            <a class="btn btn-primary" id="AddEditAboutUs" data-toggle="modal" asp-action="AddEdit"
-                                               data-target="#modal-action-AboutUs" asp-route-id="@item.Id">
+                                            <a class="btn btn-primary" id="AddEditAboutUs" data-toggle="modal" asp-action="AddEditSlider"
+                                               data-target="#modal-action-Sliders" asp-route-id="@item.Id">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                                 ویرایش
                                             </a>
 
-                                            <a class="btn btn-danger" id="DeleteAboutUs" data-toggle="modal" asp-action="Delete"
-                                               data-target="#modal-action-AboutUs" asp-route-id="@item.Id">
-                                                
+                                            <a class="btn btn-danger" id="DeleteAboutUs" data-toggle="modal" asp-action=""
+                                               data-target="#modal-action-Sliders" asp-route-id="@item.Id">
                                                 <i class="glyphicon glyphicon-trash"></i>
                                                 حذف
                                             </a>
@@ -95,9 +87,55 @@
 </div>
 
 
-@await Html.PartialAsync("_Modal", new BootstrapModel { Id = "modal-action-AboutUs", Size = ModalSize.Medium })
+@await Html.PartialAsync("_Modal", new BootstrapModel { Id = "modal-action-Sliders", Size = ModalSize.Medium })
 
 @section Scripts{
-    <script src="~/js/modal-js/AboutUs-indx.js"></script>
-    }
+    <script src="~/js/modal-js/Slider-indx.js"></script>
+
+    <script>
+        $(document).on('click',
+            '#submitData',
+            function(e) {
+                e.preventDefault();
+
+                var fileUpload = $('#files').get(0);
+                var files = fileUpload.files;
+
+                var data = new FormData();
+
+                for (var i = 0; i < files.length; i++) {
+                    data.append('files', files[i]);
+                }
+
+                //--------------------------------------
+                $('input,select').each(function(x,y) {
+                    data.append($(y).attr('name'),$(y).val());
+                });
+
+                //--------------------------------------
+          
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("AddEditSlider","Slider", new {area = "Admin"})',
+                    contentType: false,
+                    processData: false,
+                    data: data
+                }).done(function(res) {
+                    if (res.status === 'success') {
+                        alert(res.message);
+                        window.location.href = '@Url.Action("Index", "Slider")';
+                    } else {
+                        $.each(res.error,
+                            function(a, b) {
+                                alert(b);
+                            });
+                    }
+                }).fail(function(xhr, b, error) {
+                    alert(error);
+                });
+            });
+    </script>
+}
+
+
 
