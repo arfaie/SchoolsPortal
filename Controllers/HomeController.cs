@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SchoolsPortal.Data;
 using SchoolsPortal.Models;
-using SchoolsPortal.Models.ViewModels;
+
 
 namespace SchoolsPortal.Controllers
 {
@@ -16,27 +16,16 @@ namespace SchoolsPortal.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger,ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
             _context = context;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var model = new MultiModels();
-            model.AboutUs = _context.AboutUses.FirstOrDefault();
-            model.ContactUses =
-                (from contactUse in _context.ContactUses select contactUse).ToList();
-            model.Galleries =
-                (from gallery in _context.Galleries orderby gallery.Id descending select gallery).ToList();
-            model.Services = _context.Serviceses.SingleOrDefault();
-            model.Sliders = (from slider in _context.Sliders orderby slider.Id select slider).ToList();
-            model.Setting = _context.Settings.SingleOrDefault();
-            ViewBag.RootPath = "images/home-uploads/";
-
-            return View(model);
+            return View();
         }
 
         public IActionResult Privacy()
