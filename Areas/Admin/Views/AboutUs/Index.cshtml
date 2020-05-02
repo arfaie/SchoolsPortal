@@ -35,7 +35,7 @@
                     <div class="md-form-group md-label-floating col-md-6">
                         <div class="margin-top">
                             <div class="col-xs-6 col-md-6">
-                                <a class="btn btn-primary marginbutoom" id="showAboutUs" data-toggle="modal" asp-action="AddEdit"
+                                <a class="btn btn-primary marginbutoom" id="showAboutUs" data-toggle="modal" asp-controller="AboutUs" asp-action="AddEdit"
                                    data-target="#modal-action">
                                     <i class="glyphicon glyphicon-plus"></i>
                                      جدید
@@ -107,6 +107,6 @@
 @await Html.PartialAsync("_Modal", new BootstrapModel { Id = "modal-action", Size = ModalSize.Medium })
 
 @section Scripts{
-
+    
 }
 
