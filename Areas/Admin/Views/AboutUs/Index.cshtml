@@ -95,11 +95,13 @@
 <div id="successModalAlert" tabindex="-1" role="dialog" class="modal fade">
 
 </div>
+
 @section toastr {
     <script src="~/AdminHtml/js/Custom.js"></script>
     @Html.Raw(TempData["Notification"])
 }
 @section scripts {
+
     <script>
         Delete('Aboutus', 'Delete');
     </script>
