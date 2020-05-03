@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SchoolsPortal.Areas.Admin.Controllers
 {
@@ -51,29 +52,35 @@ namespace SchoolsPortal.Areas.Admin.Controllers
                     _context.AboutUses.Add(model);
                     await _context.SaveChangesAsync();
 
-                    TempData["Notification"] = Notification.ShowNotif(MessageType.Add, ToastType.Green);
+                    TempData["Notification"] = Notification.Show(MessageType.Add, type: ToastType.Success, position: ToastPosition.TopRight);
                     return PartialView("_SuccessfulResponse", redirectUrl);
                 }
 
                 _context.AboutUses.Update(model);
                 await _context.SaveChangesAsync();
 
-                TempData["Notification"] = Notification.ShowNotif(MessageType.Edit, ToastType.Blue);
+                TempData["Notification"] = Notification.Show(MessageType.Edit, type: ToastType.Success, position: ToastPosition.TopRight);
                 return PartialView("_SuccessfulResponse", redirectUrl);
             }
 
             return PartialView("AddEdit", model);
         }
 
-        public async Task<IActionResult> Delete(string id)
+        public JsonResult Delete(string id,string redirectUrl)
         {
-            var aboutUs = await _context.AboutUses.FirstOrDefaultAsync(a => a.Id == id);
-            if (aboutUs == null)
+            var aboutUs =  _context.AboutUses.FirstOrDefault(a => a.Id == id);
+            if (aboutUs != null)
             {
-                return RedirectToAction("Index");
+                _context.AboutUses.Remove(aboutUs);
+                TempData["Notification"] = Notification.Show(MessageType.Delete, type: ToastType.Success, position: ToastPosition.TopRight);
+                return Json(new { status = "OK"});
+
+            }
+            else
+            {
+                return Json(new { status = "fail"});
             }
 
-            return PartialView("Delete", aboutUs.Title1);
         }
     }
 }

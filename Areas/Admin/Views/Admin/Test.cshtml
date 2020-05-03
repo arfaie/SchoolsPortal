@@ -1,0 +1,10 @@
+﻿
+@{
+    ViewData["Title"] = "Test";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section toastr {
+    @Html.Raw(TempData["SaveMessage"])
+}
+<h2>Test</h2>
+

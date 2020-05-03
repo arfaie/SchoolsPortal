@@ -1,6 +1,7 @@
 ﻿using SchoolsPortal.Models.Helpers.OptionEnums;
 using System;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace SchoolsPortal.Models.Helpers
 {
@@ -25,42 +26,51 @@ namespace SchoolsPortal.Models.Helpers
 			return value.ToString().ToLower();
 		}
 
-		#endregion HELPERS
+        #endregion HELPERS
 
-		public static string ShowNotif(string message,
-			ToastType type)
-		{
-			string color;
-			var iconColor = "'#ABEBC6'";
-			if (type == ToastType.Green)
-			{
-				color = "'#1ABC9C'";
-			}
-			else if (type == ToastType.Red)
-			{
-				color = "'#FF5733'";
-				iconColor = "'snow'";
-			}
-			else if (type == ToastType.Yellow)
-			{
-				color = "'#F4D03F'";
-			}
-			else if (type == ToastType.Green2)
-			{
-				color = "'#196F3D'";
-			}
-			else
-			{
-				color = "'#5DADE2'";
-			}
+        public static string Show(string message, string title = "",
+            ToastType type = ToastType.Info,
+            ToastPosition position = ToastPosition.TopRight,
+            int timeOut = 6000,
+            bool closeButton = true,
+            bool progressBar = true,
+            bool newestOnTop = true,
+            string onclick = null)
+        {
+            var scriptOption = "<script>";
+            scriptOption += "toastr.options = {";
 
-			var scriptOption = "<script>";
-			scriptOption += "iziToast.show({";
-			scriptOption += "message:'" + message + "'" + ",theme: 'light', color: '" + type + "',icon: 'icon icon-check', iconColor:" + iconColor + ",messageColor: 'snow',backgroundColor: " + color + ",maxWidth: 500,layout: 2,balloon: false,close: true,closeOnEscape: true,closeOnClick: true,displayMode: 0, position: 'topLeft',targetFirst: true,timeout: 5000,rtl: true,animateInside: true,drag: true,pauseOnHover: true,resetOnHover: false,progressBar: true,progressBarColor: '',progressBarEasing: 'linear',overlay: false,overlayClose: false,overlayColor: 'rgba(0, 0, 0, 0.6)',transitionIn: 'fadeInUp',transitionOut: 'fadeOut',transitionInMobile: 'fadeInUp',transitionOutMobile: 'fadeOutDown'";
-			scriptOption += "});";
-			scriptOption += "</script>";
+            scriptOption += "'closeButton': '" + closeButton.booToLowerString() + "','debug': false,'newestOnTop': " + newestOnTop.booToLowerString() + ",'progressBar': " + progressBar.booToLowerString() + ",'positionClass': '" + stringValueOf(position) + "','preventDuplicates': false,'onclick': " + (onclick ?? "null") + ",'showDuration': '300','hideDuration': '1000','timeOut': '" + timeOut + "','extendedTimeOut': '1000','showEasing': 'swing','hideEasing': 'linear','showMethod': 'fadeIn','hideMethod': 'fadeOut'";
+            scriptOption += "};";
+            scriptOption += "toastr['" + stringValueOf(type) + "']('" + message + "', '" + title + "');</script>";
 
-			return scriptOption;
-		}
-	}
+            return scriptOption;
+        }
+        private static string booToLowerString(this bool value)
+        {
+            return value.ToString().ToLower();
+        }
+        private static string stringValueOf(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+            DescriptionAttribute[] attributes = (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            if (attributes.Length > 0)
+            {
+                return attributes[0].Description;
+            }
+            else
+            {
+                return value.ToString();
+            }
+        }
+        public class JsonData
+        {
+            public string Script { get; set; }
+            public string Html { get; set; }
+            public bool Success { get; set; }
+            public string Option { get; set; }
+            public string Url { get; set; }
+            public bool IsUsed { get; set; }
+        }
+    }
 }

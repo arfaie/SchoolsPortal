@@ -4,22 +4,45 @@ namespace SchoolsPortal.Models.Helpers.OptionEnums
 {
     public enum ToastType
     {
-        //blue, red, green, yellow
         [Description("success")]
-        Green,
+        Success,
 
         [Description("info")]
-        Blue,
+        Info,
 
         [Description("warning")]
-        Yellow,
+        Warning,
 
         [Description("error")]
-        Red,
+        Error,
 
-        [Description("success2")]
-        Green2,
+    }
 
+    public enum ToastPosition
+    {
+        [Description("toast-top-right")]
+        TopRight,
+
+        [Description("toast-bottom-righ")]
+        BottomRight,
+
+        [Description("toast-bottom-left")]
+        BottomLeft,
+
+        [Description("toast-top-left")]
+        TopLeft,
+
+        [Description("toast-top-full-width")]
+        TopFullWidth,
+
+        [Description("toast-bottom-full-width")]
+        BottomFullWidth,
+
+        [Description("toast-top-center")]
+        TopCenter,
+
+        [Description("toast-bottom-center")]
+        BottomCenter
     }
 
 

@@ -5,12 +5,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<div style="color:white;text-align:center" class=@TempData["css"]>
-    @if (TempData["notice"] != null)
-    {
-        <p>@TempData["notice"]</p>
-    }
-</div>
 <div class="layout-content-body">
     <div class="row gutter-xs">
         <div class="col-xs-12">
@@ -19,7 +13,6 @@
                     <div class="card-actions">
                         <button type="button" class="card-action card-toggler" title="Collapse"></button>
                         <button type="button" class="card-action card-reload" title="Reload"></button>
-                        <button type="button" class="card-action card-remove" title="Remove"></button>
                     </div>
                     <strong>@ViewBag.Title</strong>
                 </div>
@@ -35,8 +28,8 @@
                     <div class="md-form-group md-label-floating col-md-6">
                         <div class="margin-top">
                             <div class="col-xs-6 col-md-6">
-                                <a class="btn btn-primary marginbutoom" id="showAboutUs" data-toggle="modal" asp-action="AddEdit"
-                                   data-target="#modal-action-AboutUs">
+                                <a class="btn btn-primary marginbutoom" id="showAboutUs" data-toggle="modal" asp-controller="AboutUs" asp-action="AddEdit"
+                                   data-target="#modal-action">
                                     <i class="glyphicon glyphicon-plus"></i>
                                     جدید
                                 </a>
@@ -68,15 +61,13 @@
                                         <td>@item.Title4</td>
 
                                         <td>
-                                            <a class="btn btn-primary" id="AddEditAboutUs" data-toggle="modal" asp-action="AddEdit"
-                                               data-target="#modal-action-AboutUs" asp-route-id="@item.Id">
+                                            <a class="btn btn-info" id="editagency" data-toggle="modal" asp-action="AddEdit"
+                                               data-target="#modal-action" asp-route-id="@item.Id">
                                                 <i class="glyphicon glyphicon-pencil"></i>
                                                 ویرایش
                                             </a>
 
-                                            <a class="btn btn-danger" id="DeleteAboutUs" data-toggle="modal" asp-action="Delete"
-                                               data-target="#modal-action-AboutUs" asp-route-id="@item.Id">
-                                                
+                                            <a class="btn btn-danger" id="Delete" value="@item.Id">
                                                 <i class="glyphicon glyphicon-trash"></i>
                                                 حذف
                                             </a>
@@ -93,11 +84,25 @@
         </div>
     </div>
 </div>
+<div id="progress" class="addModal">
+    <div class="addCenter">
+        <img src="~/images/loading.gif" />
+    </div>
+</div>
+<div id="infoModalAlertColored" tabindex="-1" role="dialog" class="modal fade">
 
+</div>
+<div id="successModalAlert" tabindex="-1" role="dialog" class="modal fade">
 
-@await Html.PartialAsync("_Modal", new BootstrapModel { Id = "modal-action-AboutUs", Size = ModalSize.Medium })
-
-@section Scripts{
-    <script src="~/js/modal-js/AboutUs-indx.js"></script>
-    }
+</div>
+@section toastr {
+    <script src="~/AdminHtml/js/Custom.js"></script>
+    @Html.Raw(TempData["Notification"])
+}
+@section scripts {
+    <script>
+        Delete('Aboutus', 'Delete');
+    </script>
+    <script src="~/AdminHtml/js/data-table.js"></script>
+}
 
