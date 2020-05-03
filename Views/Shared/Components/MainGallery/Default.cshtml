@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SchoolsPortal.Models.Gallery>
+﻿@model IEnumerable<Gallery>
 
 <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
@@ -9,13 +9,13 @@
                 foreach (var item in Model)
                 {
                     <div class="portfolio-single">
-                    <a href="#" class="zoom">
-                        <div class="portfolio-head">
-                            <img src="~/images/home-uploads/@item.Image" alt="">
-                            <i class="fa fa-search"></i>
-                        </div>
-                    </a>
-                </div>
+                        <a href="#" class="zoom">
+                            <div class="portfolio-head">
+                                <img src="~/images/home-uploads/@item.Image" alt="">
+                                <i class="fa fa-search"></i>
+                            </div>
+                        </a>
+                    </div>
                 }
             }
             <!--/ End Portfolio -->

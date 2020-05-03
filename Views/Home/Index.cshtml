@@ -1,7 +1,6 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "به سایت مدرسه فردا خوش آمدید";
 }
-@model SchoolsPortal.Models.ViewModels.MultiModels
 
 
 <!DOCTYPE html>
@@ -88,13 +87,13 @@
     <section id="j-slider">
         <div class="slide-main">
             <!-- Single Slider -->
-            @await Html.PartialAsync("_Slider", Model.Sliders)
+            @await Component.InvokeAsync("MainSlider")
             <!--/ End Single Slider -->
         </div>
     </section>
     <!--/ End Slider -->
     <!-- Start Service -->
-    @await Html.PartialAsync("_Services", Model.Services)
+    @await Component.InvokeAsync("MainService")
     <!--/ End Service -->
     <!-- Why Choose Us -->
     <div id="why-choose" class="section">
@@ -109,7 +108,7 @@
 
         @* About Us *@
 
-        @await Html.PartialAsync("_AboutUs", Model.AboutUs)
+        @await Component.InvokeAsync("MainAboutUs")
 
         @* End About Us *@
 
@@ -133,7 +132,7 @@
 
             <!-- Gallery -->
 
-            @await Html.PartialAsync("_Gallery", Model.Galleries)
+            @await Component.InvokeAsync("MainGallery")
 
             <!--/ End Gallery -->
         </div>
@@ -147,9 +146,9 @@
 
     <!-- Contact Us -->
 
-    @await Html.PartialAsync("_ContactUs", Model.ContactUses)
+@await Component.InvokeAsync("MainContactUs")
 
-    <!--/ End Contact Us -->
+<!--/ End Contact Us -->
 
     <script type='text/javascript'>
         /* <![CDATA[ */
