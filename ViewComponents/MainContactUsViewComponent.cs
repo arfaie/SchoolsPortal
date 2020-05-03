@@ -21,7 +21,7 @@ namespace SchoolsPortal.ViewComponents
         {
             ViewBag.RootPath = "images/home-uploads/";
 
-            return View(await _context.ContactUses.ToListAsync());
+            return View(await _context.ContactUses.AsNoTracking().ToListAsync());
         }
     }
 }
