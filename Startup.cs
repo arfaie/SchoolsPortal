@@ -62,7 +62,7 @@ namespace SchoolsPortal
             services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddDistributedMemoryCache();
-
+            services.AddMvc();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromDays(10);
@@ -72,7 +72,7 @@ namespace SchoolsPortal
 
             services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/Login");
 
-            services.AddMvc();
+            
 
         }
 
@@ -94,14 +94,13 @@ namespace SchoolsPortal
             //app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
 
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseSession();
+            app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {
