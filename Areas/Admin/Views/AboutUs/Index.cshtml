@@ -71,7 +71,7 @@
                                                     <i class="glyphicon glyphicon-pencil"></i>
                                                     ویرایش
                                                 </a>*@
-                                            <button type="button" id="editAddressModal@(item.Id)" class="btn btn-primary edit-address-btn" data-toggle="modal" data-target="#exampleModal">
+                                            <button type="button" id="editAddressModal@(item.Id)" class="btn btn-primary edit-aboutus-btn" data-toggle="modal" data-target="#exampleModal">
                                                 ویرایش
                                             </button>
 
@@ -116,35 +116,40 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <input type="hidden" id="idEdit">
+            <form asp-controller="AboutUs" asp-action="AddEdit" method="post">
+                <div class="modal-body">
+
+                    <input name="id" type="hidden" id="idEdit">
 
 
-                <div class="form-group">
-                    <label for="Title1">نام و نام خانوادگی تحویل گیرنده</label>
-                    <span class="required-star" style="color:red;">*</span>
-                    <input type="text" id="Title1" class="input-name-checkout" placeholder="نام تحویل گیرنده را وارد نمایید">
+                    <div class="form-group">
+                        <label for="Title1">عنوان اول</label>
+                        <span class="required-star" style="color: red;">*</span>
+                        <input type="text" name="Title1" id="Title1" class="input-name-checkout" placeholder="عنوان اول">
+                    </div>
+                    <div class="form-group">
+                        <label for="Title2">عنوان دوم</label>
+                        <span class="required-star" style="color: red;">*</span>
+                        <input type="text" name="Title2" id="Title2" class="input-name-checkout" placeholder="عنوان دوم">
+                    </div>
+                    <div class="form-group">
+                        <label for="Title3">عنوان سوم</label>
+                        <span class="required-star" style="color: red;">*</span>
+                        <input type="text" name="Title3" id="Title3" class="input-name-checkout" placeholder="عنوان سوم">
+                    </div>
+                    <div class="form-group">
+                        <label for="Title4">عنوان چهارم</label>
+                        <span class="required-star" style="color: red;">*</span>
+                        <input type="text" name="Title4" id="Title4" class="input-name-checkout" placeholder="عنوان چهارم">
+                    </div>
+
                 </div>
-                <div class="form-group">
-                    <label for="Title2">نام و نام خانوادگی تحویل گیرنده</label>
-                    <span class="required-star" style="color:red;">*</span>
-                    <input type="text" id="Title2" class="input-name-checkout" placeholder="نام تحویل گیرنده را وارد نمایید">
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بازگشت</button>
+                    <button type="submit" class="btn btn-primary">ویرایش</button>
                 </div>
-                <div class="form-group">
-                    <label for="Title3">نام و نام خانوادگی تحویل گیرنده</label>
-                    <span class="required-star" style="color:red;">*</span>
-                    <input type="text" id="Title3" class="input-name-checkout" placeholder="نام تحویل گیرنده را وارد نمایید">
-                </div>
-                <div class="form-group">
-                    <label for="Title4">نام و نام خانوادگی تحویل گیرنده</label>
-                    <span class="required-star" style="color:red;">*</span>
-                    <input type="text" id="Title4" class="input-name-checkout" placeholder="نام تحویل گیرنده را وارد نمایید">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">بازگشت</button>
-                <button id="editAboutustestButton" class="btn btn-primary">ویرایش</button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -165,7 +170,7 @@
     <script src="~/AdminHtml/js/data-table.js"></script>
 
     <script>
-        $(".edit-address-btn").click(function (e) {
+        $(".edit-aboutus-btn").click(function (e) {
             e.preventDefault();
 
             var id = $(this).attr("id").replace("editAddressModal", "");
@@ -178,7 +183,7 @@
 
         });
 
-        $("#editAboutustestButton").click(function (e) {
+        @*$("#editAboutustestButton").click(function (e) {
             e.preventDefault();
 
             $.ajax({
@@ -198,7 +203,7 @@
                     //alert("OK");
                 });
 
-        });
+        });*@
     </script>
 
 }

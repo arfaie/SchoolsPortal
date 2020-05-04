@@ -25,7 +25,7 @@ namespace SchoolsPortal.Areas.Admin.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AboutUses.AsNoTracking().ToListAsync());
+            return View(await _context.AboutUses.ToListAsync());
         }
 
         [HttpGet]
