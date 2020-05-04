@@ -22,15 +22,12 @@
                 </div>
 
                 <div class="card-body">
-
-                    
-                   
                     <div class="modal-body form-horizontal">
-                        <div class="row">
-                            <div class="form-group">
-                                <label asp-for="Title1" class="col-lg-2 col-sm-2 control-label"></label>
-                                <div class="col-lg-4">
-                                    <input asp-for="Title1" class="form-control" />
+                            <div class="col-xs-12 col-md-6">
+                                <div class="md-form-group md-label-floating">
+                                    @Html.TextBoxFor(model => model.Title1, new { @class = "md-form-control", type = "text", spellcheck = "false" })
+                                    @Html.LabelFor(model => model.Title1, new { @class = "md-control-label" })
+                                    <span class="has-error md-help-block valError">@Html.ValidationMessageFor(model => model.Title1)</span>
                                 </div>
                             </div>
 
@@ -69,7 +66,6 @@
                             <div class="form-group hidden">
                                 <input asp-for="Id" class="form-control" />
                             </div>
-                        </div>
                     </div>
                     @if (String.IsNullOrEmpty(Model.Id))
                     {
