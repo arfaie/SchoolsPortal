@@ -41,44 +41,75 @@ namespace SchoolsPortal.Areas.Admin.Controllers
             return PartialView("AddEdit", new AboutUs());
         }
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AddEdit(string id, AboutUs model, string redirectUrl)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (string.IsNullOrWhiteSpace(id))
+        //        {
+        //            _context.AboutUses.Add(model);
+        //            await _context.SaveChangesAsync();
+
+        //            TempData["Notification"] = Notification.Show(MessageType.Add, type: ToastType.Success, position: ToastPosition.TopRight);
+        //            return PartialView("_SuccessfulResponse", redirectUrl);
+        //        }
+
+        //        _context.AboutUses.Update(model);
+        //        await _context.SaveChangesAsync();
+
+        //        TempData["Notification"] = Notification.Show(MessageType.Edit, type: ToastType.Success, position: ToastPosition.TopRight);
+        //        return PartialView("_SuccessfulResponse", redirectUrl);
+        //    }
+
+        //    return PartialView("AddEdit", model);
+        //}
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddEdit(string id, AboutUs model, string redirectUrl)
+        public async Task<IActionResult> AddEdit(string id, string Title1, string Title2, string Title3, string Title4)
         {
-            if (ModelState.IsValid)
+
+            var aboutus = await _context.AboutUses.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (aboutus == null)
             {
-                if (string.IsNullOrWhiteSpace(id))
-                {
-                    _context.AboutUses.Add(model);
-                    await _context.SaveChangesAsync();
-
-                    TempData["Notification"] = Notification.Show(MessageType.Add, type: ToastType.Success, position: ToastPosition.TopRight);
-                    return PartialView("_SuccessfulResponse", redirectUrl);
-                }
-
-                _context.AboutUses.Update(model);
-                await _context.SaveChangesAsync();
-
-                TempData["Notification"] = Notification.Show(MessageType.Edit, type: ToastType.Success, position: ToastPosition.TopRight);
-                return PartialView("_SuccessfulResponse", redirectUrl);
+                return Json(new { status = "fail", message = Notification.Show("آیتم پیدا نشد", type: ToastType.Warning) });
             }
 
-            return PartialView("AddEdit", model);
+            aboutus.Title1 = Title1;
+            aboutus.Title2 = Title2;
+            aboutus.Title3 = Title3;
+            aboutus.Title4 = Title4;
+           
+
+            _context.AboutUses.Update(aboutus);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+
+                return Json(new { status = "fail", message = Notification.Show("آیتم با موفقیت ویرایش شد", type: ToastType.Success) });
+            }
+            catch (Exception e)
+            {
+                return Json(new { status = "fail", message = Notification.Show("آیتم پیدا نشد", type: ToastType.Error) });
+            }
         }
 
-        public JsonResult Delete(string id,string redirectUrl)
+        public JsonResult Delete(string id, string redirectUrl)
         {
-            var aboutUs =  _context.AboutUses.FirstOrDefault(a => a.Id == id);
+            var aboutUs = _context.AboutUses.FirstOrDefault(a => a.Id == id);
             if (aboutUs != null)
             {
                 _context.AboutUses.Remove(aboutUs);
                 TempData["Notification"] = Notification.Show(MessageType.Delete, type: ToastType.Success, position: ToastPosition.TopRight);
-                return Json(new { status = "OK"});
+                return Json(new { status = "OK" });
 
             }
             else
             {
-                return Json(new { status = "fail"});
+                return Json(new { status = "fail" });
             }
 
         }

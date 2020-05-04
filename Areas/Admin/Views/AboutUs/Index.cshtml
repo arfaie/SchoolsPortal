@@ -53,6 +53,11 @@
                                 foreach (var item in Model)
                                 {
 
+                                    <input type="hidden" id="Title1input@(item.Id)" value="@item.Title1" />
+                                    <input type="hidden" id="Title2input@(item.Id)" value="@item.Title2" />
+                                    <input type="hidden" id="Title3input@(item.Id)" value="@item.Title3" />
+                                    <input type="hidden" id="Title4input@(item.Id)" value="@item.Title4" />
+
                                     <tr>
                                         <td>@(i++)</td>
                                         <td>@item.Title1</td>
@@ -61,11 +66,14 @@
                                         <td>@item.Title4</td>
 
                                         <td>
-                                            <a class="btn btn-info" id="editagency" data-toggle="modal" asp-action="AddEdit"
-                                               data-target="#modal-action" asp-route-id="@item.Id">
-                                                <i class="glyphicon glyphicon-pencil"></i>
+                                            @*<a class="btn btn-info" id="editagency" data-toggle="modal" asp-action="AddEdit"
+                                                   data-target="#modal-action" asp-route-id="@item.Id">
+                                                    <i class="glyphicon glyphicon-pencil"></i>
+                                                    ویرایش
+                                                </a>*@
+                                            <button type="button" id="editAddressModal@(item.Id)" class="btn btn-primary edit-address-btn" data-toggle="modal" data-target="#exampleModal">
                                                 ویرایش
-                                            </a>
+                                            </button>
 
                                             <a class="btn btn-danger" id="Delete" value="@item.Id">
                                                 <i class="glyphicon glyphicon-trash"></i>
@@ -96,6 +104,55 @@
 
 </div>
 
+
+<!-- Modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">ویرایش درباره ما</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idEdit">
+
+
+                <div class="form-group">
+                    <label for="Title1">نام و نام خانوادگی تحویل گیرنده</label>
+                    <span class="required-star" style="color:red;">*</span>
+                    <input type="text" id="Title1" class="input-name-checkout" placeholder="نام تحویل گیرنده را وارد نمایید">
+                </div>
+                <div class="form-group">
+                    <label for="Title2">نام و نام خانوادگی تحویل گیرنده</label>
+                    <span class="required-star" style="color:red;">*</span>
+                    <input type="text" id="Title2" class="input-name-checkout" placeholder="نام تحویل گیرنده را وارد نمایید">
+                </div>
+                <div class="form-group">
+                    <label for="Title3">نام و نام خانوادگی تحویل گیرنده</label>
+                    <span class="required-star" style="color:red;">*</span>
+                    <input type="text" id="Title3" class="input-name-checkout" placeholder="نام تحویل گیرنده را وارد نمایید">
+                </div>
+                <div class="form-group">
+                    <label for="Title4">نام و نام خانوادگی تحویل گیرنده</label>
+                    <span class="required-star" style="color:red;">*</span>
+                    <input type="text" id="Title4" class="input-name-checkout" placeholder="نام تحویل گیرنده را وارد نمایید">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بازگشت</button>
+                <button id="editAboutustestButton" class="btn btn-primary">ویرایش</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+
+
+
 @section toastr {
     <script src="~/AdminHtml/js/Custom.js"></script>
     @Html.Raw(TempData["Notification"])
@@ -106,5 +163,45 @@
         Delete('Aboutus', 'Delete');
     </script>
     <script src="~/AdminHtml/js/data-table.js"></script>
+
+    <script>
+        $(".edit-address-btn").click(function (e) {
+            e.preventDefault();
+
+            var id = $(this).attr("id").replace("editAddressModal", "");
+
+            $("#idEdit").val(id);
+            $("#Title1").val($("#Title1input" + id).val());
+            $("#Title2").val($("#Title2input" + id).val());
+            $("#Title3").val($("#Title3input" + id).val());
+            $("#Title4").val($("#Title4input" + id).val());
+
+        });
+
+        $("#editAboutustestButton").click(function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                    type: 'post',
+                    data: { "id": $("#idEdit").val(), "Title1": $("#Title1").val(), "Title2": $("#Title2").val(), "Title3": $("#Title3").val(), "Title4": $("#Title4").val() },
+                    url: '@Url.Action("AddEdit", "AboutUs")',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+                })
+                .done(function (data) {
+                    location.reload();
+                })
+                .fail(function (xhr, b, error) {
+                    alert(error);
+                })
+                .always(function () {
+                    //alert("OK");
+                });
+
+        });
+    </script>
+
 }
+
+
 
