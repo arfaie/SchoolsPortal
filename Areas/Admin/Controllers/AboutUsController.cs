@@ -103,6 +103,7 @@ namespace SchoolsPortal.Areas.Admin.Controllers
             if (aboutUs != null)
             {
                 _context.AboutUses.Remove(aboutUs);
+                _context.SaveChanges();
                 TempData["Notification"] = Notification.Show(MessageType.Delete, type: ToastType.Success, position: ToastPosition.TopRight);
                 return Json(new { status = "OK" });
 
