@@ -30,7 +30,7 @@ namespace SchoolsPortal.Areas.Admin.Controllers
 
         [HttpGet]
         [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> AddEdit(string id)
+        public async Task<IActionResult> AddEdit(string id=null)
         {
             var aboutUs = await _context.AboutUses.FirstOrDefaultAsync(a => a.Id == id);
             if (aboutUs != null)

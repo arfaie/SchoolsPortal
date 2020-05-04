@@ -28,10 +28,8 @@
                     <div class="md-form-group md-label-floating col-md-6">
                         <div class="margin-top">
                             <div class="col-xs-6 col-md-6">
-                                <a class="btn btn-primary marginbutoom" id="showAboutUs" asp-controller="AboutUs" asp-action="AddEdit">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                    جدید
-                                </a>
+                                <a href="/Admin/Aboutus/AddEdit" class="btn btn-primary marginbutoom">جدید</a>
+                                <i class="glyphicon glyphicon-plus"></i>
                             </div>
                         </div>
                     </div>
@@ -146,7 +144,7 @@
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">بازگشت</button>
-                    <button type="submit" class="btn btn-primary">ویرایش</button>
+                    <button id="editAboutustestButton" type="submit" class="btn btn-primary">ویرایش</button>
                 </div>
             </form>
         </div>
@@ -158,15 +156,15 @@
 
 
 @section toastr {
-    <script src="~/AdminHtml/js/Custom.js"></script>
+
     @Html.Raw(TempData["Notification"])
 }
 @section scripts {
-
+    <script src="~/AdminHtml/js/Custom.js"></script>
+    <script src="~/AdminHtml/js/data-table.js"></script>
     <script>
         Delete('Aboutus', 'Delete');
     </script>
-    <script src="~/AdminHtml/js/data-table.js"></script>
 
     <script>
         $(".edit-aboutus-btn").click(function (e) {
@@ -182,16 +180,16 @@
 
         });
 
-        @*$("#editAboutustestButton").click(function (e) {
+        $("#editAboutustestButton").click(function (e) {
             e.preventDefault();
 
             $.ajax({
-                    type: 'post',
-                    data: { "id": $("#idEdit").val(), "Title1": $("#Title1").val(), "Title2": $("#Title2").val(), "Title3": $("#Title3").val(), "Title4": $("#Title4").val() },
-                    url: '@Url.Action("AddEdit", "AboutUs")',
-                    dataType: 'json',
-                    contentType: 'application/x-www-form-urlencoded; charset=utf-8'
-                })
+                type: 'post',
+                data: { "id": $("#idEdit").val(), "Title1": $("#Title1").val(), "Title2": $("#Title2").val(), "Title3": $("#Title3").val(), "Title4": $("#Title4").val() },
+                url: "/Admin/Aboutus/AddEdit",
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8'
+            })
                 .done(function (data) {
                     location.reload();
                 })
@@ -202,10 +200,11 @@
                     //alert("OK");
                 });
 
-        });*@
+        });
     </script>
 
 }
+
 
 
 
